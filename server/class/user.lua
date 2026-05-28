@@ -45,6 +45,7 @@ function User(source, identifier, group, playerwarnings, license, char, max_jobs
                 Money = player.money,
                 Gold = player.gold,
                 Rol = player.rol,
+                Pesos = player.pesos,
                 CharId = self.usedCharacterId,
             }, true)
         end
@@ -190,7 +191,7 @@ function User(source, identifier, group, playerwarnings, license, char, max_jobs
     end
 
     self.LoadCharacters = function()
-        MySQL.query("SELECT identifier, charidentifier, `group`, job, jobgrade, joblabel, firstname, lastname, inventory, status, coords, money, gold, rol, healthouter, healthinner, staminaouter, staminainner, xp, isdead, skinPlayer, compPlayer, compTints, age,gender, character_desc, nickname, slots,skills,multijobs FROM characters WHERE identifier = @identifier", { identifier = self._identifier }, function(usercharacters)
+        MySQL.query("SELECT identifier, charidentifier, `group`, job, jobgrade, joblabel, firstname, lastname, inventory, status, coords, money, gold, rol, pesos, healthouter, healthinner, staminaouter, staminainner, xp, isdead, skinPlayer, compPlayer, compTints, age,gender, character_desc, nickname, slots,skills,multijobs FROM characters WHERE identifier = @identifier", { identifier = self._identifier }, function(usercharacters)
             self.Numofcharacters(#usercharacters)
             if #usercharacters > 0 then
                 for _, character in ipairs(usercharacters) do
@@ -210,6 +211,7 @@ function User(source, identifier, group, playerwarnings, license, char, max_jobs
                             money = character.money,
                             gold = character.gold,
                             rol = character.rol,
+                            pesos = character.pesos or 0,
                             healthOuter = character.healthouter,
                             healthInner = character.healthinner,
                             staminaOuter = character.staminaouter,
@@ -253,6 +255,7 @@ function User(source, identifier, group, playerwarnings, license, char, max_jobs
             money = Config.initMoney,
             gold = Config.initGold,
             rol = Config.initRol,
+            pesos = Config.initPesos or 0,
             healthOuter = 500,
             healthInner = 100,
             staminaOuter = 500,

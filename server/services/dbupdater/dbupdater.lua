@@ -22,6 +22,18 @@ local Tables = {
 local Updates = {
 
     {
+        name = "characters.pesos",
+        script = "vorp_core",
+        find = [[
+            SELECT * FROM Information_Schema.Columns
+            WHERE Table_Name = 'characters' AND COLUMN_NAME = 'pesos'
+        ]],
+        sql = [[
+            ALTER TABLE `characters` ADD COLUMN `pesos` DOUBLE NOT NULL DEFAULT 0 AFTER `rol`;
+        ]]
+    },
+
+    {
         name = "users",
         script = "vorp_core",
         find = [[

@@ -42,6 +42,8 @@ Config = {
 
     initRol                  = 0.0,          -- Initial role-play currency amount for new players.
 
+    initPesos                = 0.0,          -- Initial pesos amount for new players.
+
     initInvCapacity          = 35.0,         -- Initial number of character inventory weight for new players. for old characters you must change in the database if you dont ave a new server
 
     initXp                   = 0,            -- Initial experience points for new players.
@@ -137,6 +139,8 @@ Config = {
     HideID                   = false,      -- Disables the ID UI for all players.
 
     HideTokens               = false,      -- Disables the Token UI for all players.
+
+    HidePesos                = false,      -- Disables the Pesos UI for all players.
 
     HidePVP                  = false,      -- Disables the PVP UI for all players.
 

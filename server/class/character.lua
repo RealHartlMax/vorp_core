@@ -68,6 +68,7 @@ function Character(data)
     self.money = data.money
     self.gold = data.gold
     self.rol = data.rol
+    self.pesos = data.pesos or 0
     self.healthOuter = data.healthOuter
     self.healthInner = data.healthInner
     self.staminaOuter = data.staminaOuter
@@ -225,6 +226,11 @@ function Character(data)
         return self.rol
     end
 
+    self.Pesos = function(value)
+        if value then self.pesos = value end
+        return self.pesos
+    end
+
     self.HealthOuter = function(value)
         if value then self.healthOuter = value end
         return self.healthOuter
@@ -357,6 +363,7 @@ function Character(data)
             moneyquanty = self.Money(),
             goldquanty = self.Gold(),
             rolquanty = self.Rol(),
+            pesosquanty = self.Pesos(),
             serverId = self.source,
             xp = self.Xp()
         }
@@ -373,6 +380,9 @@ function Character(data)
         elseif currency == 2 then
             self.rol = self.rol + quantity
             SetState(self.source, "Character", "Rol", self.rol)
+        elseif currency == 3 then
+            self.pesos = self.pesos + quantity
+            SetState(self.source, "Character", "Pesos", self.pesos)
         end
         self.updateCharUi()
     end
@@ -387,6 +397,9 @@ function Character(data)
         elseif currency == 2 then
             self.rol = self.rol - quantity
             SetState(self.source, "Character", "Rol", self.rol)
+        elseif currency == 3 then
+            self.pesos = self.pesos - quantity
+            SetState(self.source, "Character", "Pesos", self.pesos)
         end
 
         self.updateCharUi()
@@ -447,13 +460,14 @@ function Character(data)
     end
 
     self.SaveNewCharacterInDb = function(cb)
-        MySQL.query("INSERT INTO characters (`identifier`,`group`,`money`,`gold`,`rol`,`xp`,`healthouter`,`healthinner`,`staminaouter`,`staminainner`,`inventory`,`job`,`status`,`firstname`,`lastname`,`skinPlayer`,`compPlayer`,`jobgrade`,`coords`,`isdead`,`joblabel`, `age`,`gender`,`character_desc`,`nickname`,`compTints`,`steamname`,`slots`,`skills`,`multijobs`) VALUES (@identifier,@group, @money, @gold, @rol, @xp, @healthouter, @healthinner, @staminaouter, @staminainner, @inventory, @job, @status, @firstname, @lastname, @skinPlayer, @compPlayer, @jobgrade, @coords, @isdead, @joblabel, @age, @gender, @charDescription, @nickname,@compTints,@steamname,@slots,@skills,@multijobs)",
+        MySQL.query("INSERT INTO characters (`identifier`,`group`,`money`,`gold`,`rol`,`pesos`,`xp`,`healthouter`,`healthinner`,`staminaouter`,`staminainner`,`inventory`,`job`,`status`,`firstname`,`lastname`,`skinPlayer`,`compPlayer`,`jobgrade`,`coords`,`isdead`,`joblabel`, `age`,`gender`,`character_desc`,`nickname`,`compTints`,`steamname`,`slots`,`skills`,`multijobs`) VALUES (@identifier,@group, @money, @gold, @rol, @pesos, @xp, @healthouter, @healthinner, @staminaouter, @staminainner, @inventory, @job, @status, @firstname, @lastname, @skinPlayer, @compPlayer, @jobgrade, @coords, @isdead, @joblabel, @age, @gender, @charDescription, @nickname,@compTints,@steamname,@slots,@skills,@multijobs)",
             {
                 identifier = self.identifier,
                 group = self.group,
                 money = self.money,
                 gold = self.gold,
                 rol = self.rol,
+                pesos = self.pesos,
                 xp = self.xp,
                 healthouter = self.healthOuter,
                 healthinner = self.healthInner,
@@ -495,12 +509,13 @@ function Character(data)
     end
 
     self.SaveCharacterInDb = function()
-        MySQL.update("UPDATE characters SET `group` =@group ,`money` =@money ,`gold` =@gold ,`rol` =@rol ,`xp` =@xp ,`healthouter` =@healthouter ,`healthinner` =@healthinner ,`staminaouter` =@staminaouter ,`staminainner` =@staminainner ,`job` =@job , `status` =@status ,`firstname` =@firstname , `lastname` =@lastname , `jobgrade` =@jobgrade , `coords` =@coords , `isdead` =@isdead , `joblabel` =@joblabel, `age` =@age, `gender`=@gender, `character_desc`=@charDescription,`nickname`=@nickname,`steamname`=@steamname, `slots` =@slots, `skills`=@skills, `multijobs`=@multijobs  WHERE `identifier` =@identifier AND `charidentifier` =@charidentifier",
+        MySQL.update("UPDATE characters SET `group` =@group ,`money` =@money ,`gold` =@gold ,`rol` =@rol ,`pesos` =@pesos ,`xp` =@xp ,`healthouter` =@healthouter ,`healthinner` =@healthinner ,`staminaouter` =@staminaouter ,`staminainner` =@staminainner ,`job` =@job , `status` =@status ,`firstname` =@firstname , `lastname` =@lastname , `jobgrade` =@jobgrade , `coords` =@coords , `isdead` =@isdead , `joblabel` =@joblabel, `age` =@age, `gender`=@gender, `character_desc`=@charDescription,`nickname`=@nickname,`steamname`=@steamname, `slots` =@slots, `skills`=@skills, `multijobs`=@multijobs  WHERE `identifier` =@identifier AND `charidentifier` =@charidentifier",
             {
                 group = self.group,
                 money = self.money,
                 gold = self.gold,
                 rol = self.rol,
+                pesos = self.pesos,
                 xp = self.xp,
                 healthouter = self.healthOuter,
                 healthinner = self.healthInner,
@@ -539,6 +554,7 @@ function Character(data)
         userData.money = self.money
         userData.gold = self.gold
         userData.rol = self.rol
+        userData.pesos = self.pesos
         userData.xp = self.xp
         userData.healthOuter = self.healthOuter
         userData.healthInner = self.healthInner
@@ -616,6 +632,11 @@ function Character(data)
             self.updateCharUi()
         end
 
+        userData.setPesos = function(pesos)
+            self.Pesos(pesos)
+            self.updateCharUi()
+        end
+
         userData.setXp = function(xp)
             self.Xp(xp)
             self.updateCharUi()
@@ -683,6 +704,7 @@ function Character(data)
                 moneyquanty = self.Money(),
                 goldquanty = self.Gold(),
                 rolquanty = self.Rol(),
+                pesosquanty = self.Pesos(),
                 serverId = self.source,
                 xp = self.Xp()
             }

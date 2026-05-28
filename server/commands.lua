@@ -211,6 +211,10 @@ function AddMoney(data)
     local quantity = tonumber(data.args[3])
     local Character = CoreFunctions.getUser(target).getUsedCharacter
 
+    if montype < 0 or montype > 3 then
+        return CoreFunctions.NotifyObjective(data.source, Translation[Lang].Notify.error, 4000)
+    end
+
     Character.addCurrency(montype, quantity)
 
     sendDiscordLogs(data.config.webhook, data, data.source, montype, quantity)
@@ -273,6 +277,10 @@ function RemmoveCurrency(data)
     local montype = tonumber(data.args[2])
     local quantity = tonumber(data.args[3])
     local Character = CoreFunctions.getUser(target).getUsedCharacter
+
+    if montype < 0 or montype > 3 then
+        return CoreFunctions.NotifyObjective(data.source, Translation[Lang].Notify.error, 4000)
+    end
 
     Character.removeCurrency(montype, quantity)
     sendDiscordLogs(data.config.webhook, data, data.source, montype, quantity)

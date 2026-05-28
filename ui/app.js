@@ -11,6 +11,11 @@ createApp({
 					hide: true,
 					image: './assets/icons/token.png'
 				},
+				pesos: {
+					value: 0,
+					hide: true,
+					image: './assets/icons/money.png'
+				},
 				gold: {
 					value: 0,
 					decimal: '00',
@@ -104,6 +109,7 @@ createApp({
 						this.iconrows.lv.hide = item.hidelevel
 						this.iconrows.id.hide = item.hideid
 						this.iconrows.token.hide = item.hidetokens
+						this.iconrows.pesos.hide = item.hidepesos
 						this.uiposition = item.uiposition
 						this.uilayout = item.uilayout
 						this.closeondelay = item.closeondelay
@@ -126,6 +132,10 @@ createApp({
 
 						if (item && typeof item.rolquanty === "number") {
 							this.iconrows.token.value = Math.trunc(item.rolquanty);
+						}
+
+						if (item && typeof item.pesosquanty === "number") {
+							this.iconrows.pesos.value = Math.trunc(item.pesosquanty);
 						}
 
 						if (item && typeof item.serverId === "number") {
@@ -158,6 +168,12 @@ createApp({
 					case "setrol":
 						if (item && typeof item.rolquanty === "number") {
 							this.iconrows.token.value = Math.trunc(item.rolquanty);
+						}
+
+						break;
+					case "setpesos":
+						if (item && typeof item.pesosquanty === "number") {
+							this.iconrows.pesos.value = Math.trunc(item.pesosquanty);
 						}
 
 						break;

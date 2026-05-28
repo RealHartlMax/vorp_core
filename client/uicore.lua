@@ -42,6 +42,7 @@ RegisterNetEvent('vorp:SelectedCharacter', function()
         hidelevel = Config.HideLevel,
         hideid = Config.HideID,
         hidetokens = Config.HideTokens,
+        hidepesos = Config.HidePesos,
         uiposition = Config.UIPosition,
         uilayout = Config.UILayout,
         closeondelay = Config.CloseOnDelay,
