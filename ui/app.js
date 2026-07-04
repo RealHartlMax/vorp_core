@@ -13,6 +13,7 @@ createApp({
 				},
 				pesos: {
 					value: 0,
+					decimal: '00',
 					hide: true,
 					image: './assets/icons/money.png'
 				},
@@ -136,6 +137,7 @@ createApp({
 
 						if (item && typeof item.pesosquanty === "number") {
 							this.iconrows.pesos.value = Math.trunc(item.pesosquanty);
+							this.iconrows.pesos.decimal = item.pesosquanty.toFixed(2).toString().substr(-2);
 						}
 
 						if (item && typeof item.serverId === "number") {
@@ -174,6 +176,7 @@ createApp({
 					case "setpesos":
 						if (item && typeof item.pesosquanty === "number") {
 							this.iconrows.pesos.value = Math.trunc(item.pesosquanty);
+							this.iconrows.pesos.decimal = item.pesosquanty.toFixed(2).toString().substr(-2);
 						}
 
 						break;

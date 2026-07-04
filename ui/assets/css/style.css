@@ -85,6 +85,12 @@ body {
 
 .content-row {
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1;
+    margin-bottom: 0.15rem;
 }
 
 .content-row img{
@@ -96,6 +102,7 @@ body {
 .content-row div {
     vertical-align: middle;
     display: inline-flex;
+    align-items: center;
 }
 
 .content-row .content-font {
@@ -107,6 +114,10 @@ body {
 
 .decimal {
     font-size: 1.5rem;
+}
+
+.decimal::before {
+    content: '.';
 }
 
 .gold .decimal {
